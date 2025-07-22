@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Finalizar Compra | Mundo Relax</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #e50914;
+      margin-bottom: 2rem;
+    }
+
+    .checkout-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .checkout-product {
+      background-color: #1f1f1f;
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      gap: 1rem;
+    }
+
+    .checkout-product img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .checkout-product-info {
+      flex-grow: 1;
+    }
+
+    .checkout-product-info h4 {
+      margin: 0;
+    }
+
+    .checkout-product-info p {
+      color: #ff5252;
+      font-weight: bold;
+    }
+
+    .total {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn-confirmar {
+      background-color: #e50914;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    .btn-confirmar:hover {
+      background-color: #b40610;
+    }
+  </style>
+</head>
+
+<script>
+  document.getElementById('formulario-envio').addEventListener('submit', function (e) {
+    const campos = this.querySelectorAll('input, select');
+    let formularioValido = true;
+
+    campos.forEach(campo => {
+      if (!campo.value.trim()) {
+        campo.style.border = '2px solid red';
+        formularioValido = false;
+      } else {
+        campo.style.border = '1px solid #ccc';
+      }
+    });
+
+    if (!formularioValido) {
+      e.preventDefault(); // Evita que se envíe el formulario
+      alert('Por favor completa todos los campos antes de finalizar el pedido.');
+    } else {
+      alert('¡Pedido enviado con éxito!');
+      // Aquí podrías redirigir o continuar el proceso
+    }
+  });
+</script>
+
+
+<body>
+
+  <h1>Resumen de tu compra</h1>
+
+  <div class="checkout-container" id="checkout-list">
+    <!-- Productos del carrito aparecerán aquí -->
+  </div>
+
+  <div class="total">
+    Total: $<span id="checkout-total">0</span> MXN
+  </div>
+
+
+
+  <script>
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    const checkoutList = document.getElementById("checkout-list");
+    const checkoutTotal = document.getElementById("checkout-total");
+
+    
+
+    function renderizarCheckout() {
+      checkoutList.innerHTML = "";
+      let total = 0;
+
+      carrito.forEach(producto => {
+        const card = document.createElement("div");
+        card.className = "checkout-product";
+
+        card.innerHTML = `
+          <img src="${producto.imagen}" alt="${producto.nombre}">
+          <div class="checkout-product-info">
+            <h4>${producto.nombre}</h4>
+            <p>$${producto.precio} MXN</p>
+          </div>
+        `;
+
+        checkoutList.appendChild(card);
+        total += producto.precio;
+      });
+
+      checkoutTotal.textContent = total;
+    }
+
+
+    function confirmarCompra() {
+      alert("¡Gracias por tu compra! 🛍️");
+      localStorage.removeItem("carrito");
+      window.location.href = "../../index.html";
+    }
+
+    renderizarCheckout();
+  </script>
+
+  <section class="checkout-form">
+  <h2>Datos de envío</h2>
+  <form id="formulario-envio">
+    <label for="nombre">Nombre completo:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="correo">Correo electrónico:</label>
+    <input type="email" id="correo" name="correo" required>
+
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono" name="telefono" required>
+
+    <label for="direccion">Dirección:</label>
+    <input type="text" id="direccion" name="direccion" placeholder="Calle y número" required>
+
+    <label for="colonia">Colonia:</label>
+    <input type="text" id="colonia" name="colonia" required>
+
+    <label for="ciudad">Ciudad:</label>
+    <input type="text" id="ciudad" name="ciudad" required>
+
+    <label for="estado">Estado:</label>
+    <input type="text" id="estado" name="estado" required>
+
+    <label for="cp">Código postal:</label>
+    <input type="text" id="cp" name="cp" required>
+
+    <label for="pago">Método de pago:</label>
+    <select id="pago" name="pago" required>
+      <option value="">Selecciona una opción</option>
+      <option value="transferencia">Transferencia bancaria</option>
+      <option value="efectivo">Pago contra entrega</option>
+    </select>
+
+    <button type="button" id="btn-whatsapp">Confirmar pedido por WhatsApp</button>
+
+    
+  </form>
+</section>
+
+<script>
+ document.getElementById("btn-whatsapp").addEventListener("click", function () {
+  const form = document.getElementById("formulario-envio");
+
+  // Validar el formulario antes de continuar
+  if (!form.checkValidity()) {
+    alert("Por favor, completa todos los campos requeridos.");
+    return;
+  }
+
+  // Obtener datos del formulario
+  const nombre = document.getElementById("nombre").value;
+  const correo = document.getElementById("correo").value;
+  const telefono = document.getElementById("telefono").value;
+  const direccion = document.getElementById("direccion").value;
+  const colonia = document.getElementById("colonia").value;
+  const ciudad = document.getElementById("ciudad").value;
+  const estado = document.getElementById("estado").value;
+  const cp = document.getElementById("cp").value;
+  const pagoSelect = document.getElementById("pago");
+  const metodoPago = pagoSelect.options[pagoSelect.selectedIndex].text;
+
+
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  let mensajeProductos = "";
+  let total = 0;
+
+  carrito.forEach((producto, index) => {
+    mensajeProductos += `\n${index + 1}. ${producto.nombre} - $${producto.precio}`;
+    total += producto.precio;
+  });
+
+  const mensaje = `¡Hola! Quiero realizar un pedido:\n\n*🧾 Productos:* ${mensajeProductos}\n\n*💰 Total:* $${total} MXN\n\n*📦 Datos de envío:*\nNombre: ${nombre}\nCorreo: ${correo}\nTeléfono: ${telefono}\nDirección: ${direccion}, Col. ${colonia}, ${ciudad}, ${estado}, CP: ${cp}\n\n*💳 Método de pago:* ${metodoPago}`;
+
+  const numeroWhatsApp = "525514878605"; // Cambia por el número real
+  const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, "_blank");
+
+  // Limpiar carrito, formulario y vista
+  localStorage.removeItem("carrito");
+  form.reset();
+  document.getElementById("checkout-list").innerHTML = "<p>Tu carrito está vacío.</p>";
+  document.getElementById("checkout-total").textContent = "0";
+
+  // Opcional: mensaje de agradecimiento
+  setTimeout(() => {
+    alert("¡Gracias por tu compra! Te contactaremos pronto.");
+    window.location.href = "gracias.html";
+ // Redirige a pagina agradecimiento
+  }, 500);
+});
+
+</script>
+
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-800 text-center text-gray-400 py-6">
+    <p>&copy; 2025 Mundo Relax | Diseñado por Jonathan Jiménez</p>
+  </footer>
+
+
+</body>
+</html>

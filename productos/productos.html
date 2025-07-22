@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundo Relax | Productos</title>
+   <link rel="stylesheet" href="../assets/css/style.css">
+  <div class="btn-group">
+    <a href="../index.html" class="btn-volver">Inicio</a>
+  </div>
+  <style>
+
+    body {
+      background-color: #121212;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: red
+    }
+    .categorias {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .categoria {
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      width: 200px;
+      transition: 0.3s;
+    }
+    .categoria:hover {
+      background-color: #2e2e2e;
+    }
+    .categoria a {
+      text-decoration: none;
+      color: #00bcd4;
+      font-size: 18px;
+      display: block;
+      margin-top: 1rem;
+    }
+    .categoria img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .btn-volver {
+      display: inline-block;
+      margin: 1rem;
+      padding: 10px 20px;
+      background-color: #00bcd4;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    } 
+    .btn-volver:hover {
+      background-color: #008ba3;
+      
+    }
+  </style>
+</head>
+<body>
+  <h1>Categorías de Productos</h1>
+
+<!-- Botón de carrito con contador (único) -->
+<!-- Carrito flotante con hover -->
+<div class="carrito-hover-container">
+  <div class="carrito-icono">
+    🛒 <span id="contador-carrito">0</span>
+  </div>
+  <div class="carrito-dropdown" id="carritoDropdown">
+    <h3>Tu carrito</h3>
+    <ul id="lista-carrito-dropdown"></ul>
+    <p>Total: $<span id="total-carrito-dropdown">0</span> MXN</p>
+    <a href="#" onclick="abrirCarrito()" class="btn-ver-carrito">Ver carrito completo</a>
+  </div>
+</div>
+
+
+  <div class="categorias"> 
+    <div class="categoria">
+      <img src="../assets/products/gorra.jpeg" alt="Gorras">
+      <a href="gorras/gorras.html">Gorras</a>
+    </div>
+    <div class="categoria">
+      <img src="../assets/products/playera.jpeg" alt="Playeras">
+      <a href="playeras/playeras.html">Playeras</a>
+    </div>
+    <div class="categoria">
+      <img src="../assets/products/mochilaone.jpeg" alt="Mochilas">
+      <a href="mochilas/mochilas.html">Mochilas</a>
+    </div>
+    <div class="categoria">
+      <img src="../assets/products/calcetas.jpeg" alt="Calcetines">
+      <a href="calcetines/calcetines.html">Calcetines</a>
+    </div>
+  </div>
+
+  <!-- Carrito (modal) -->
+<div id="carritoModal" class="carrito-modal">
+  <h2>Tu carrito</h2>
+  <ul id="lista-carrito"></ul>
+  <p>Total: $<span id="total-carrito">0</span> MXN</p>
+  <a href="../../checkout.html">
+  <button style="margin-top: 1rem; background-color: #00c853;">Finalizar compra</button>
+</a>
+  <button onclick="cerrarCarrito()">Cerrar</button>
+</div>
+
+
+
+<script>
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  function actualizarContadorCarrito() {
+    document.getElementById("contador-carrito").textContent = carrito.length;
+  }
+
+function agregarAlCarrito(nombre, precio, imagen) {
+  carrito.push({ nombre, precio, imagen });
+  actualizarCarrito();             // ✅ actualiza modal
+  actualizarDropdownCarrito();     // ✅ actualiza vista flotante
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  actualizarContadorCarrito();
+}
+
+  function actualizarCarrito() {
+    const lista = document.getElementById("lista-carrito");
+    const total = document.getElementById("total-carrito");
+    lista.innerHTML = "";
+    let totalPrecio = 0;
+
+    carrito.forEach((producto, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `${producto.nombre} - $${producto.precio} 
+        <button onclick="eliminarDelCarrito(${index})">Eliminar</button>`;
+      lista.appendChild(li);
+      totalPrecio += producto.precio;
+    });
+
+    total.textContent = totalPrecio;
+  }
+
+  function eliminarDelCarrito(index) {
+  carrito.splice(index, 1);
+  actualizarCarrito();
+  actualizarDropdownCarrito();
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  actualizarContadorCarrito();
+}
+
+
+  function abrirCarrito() {
+    document.getElementById("carritoModal").style.display = "block";
+    actualizarCarrito();
+  }
+
+  function cerrarCarrito() {
+    document.getElementById("carritoModal").style.display = "none";
+  }
+
+  // Mostrar el número de productos al cargar la página
+  actualizarContadorCarrito();
+
+  function actualizarDropdownCarrito() {
+  const listaDropdown = document.getElementById("lista-carrito-dropdown");
+  const totalDropdown = document.getElementById("total-carrito-dropdown");
+  listaDropdown.innerHTML = "";
+  let totalPrecio = 0;
+
+  carrito.forEach((producto) => {
+    const li = document.createElement("li");
+    li.textContent = `${producto.nombre} - $${producto.precio}`;
+    listaDropdown.appendChild(li);
+    totalPrecio += producto.precio;
+  });
+
+  totalDropdown.textContent = totalPrecio;
+}
+
+actualizarContadorCarrito();
+actualizarDropdownCarrito();
+
+
+</script>
+   
+</body>
+<footer class="bg-gray-800 text-center text-gray-400 py-6">
+    <p>&copy; 2025 Mundo Relax | Diseñado por Jonathan Jiménez</p>
+</footer>
+
+</html>

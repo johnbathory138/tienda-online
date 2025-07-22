@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playeras | Mundo Relax</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .productos-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .producto-card {
+      background-color: #2d2d2d;
+      padding: 1rem;
+      border-radius: 8px;
+      width: 250px;
+      text-align: center;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .producto-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .producto-card:hover {
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-carrito {
+      background-color: #e50914;
+      color: white;
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-carrito:hover {
+      background-color: #b40610;
+    }
+    .titulo-rojo {
+      color: #e50914;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .descripcion-productos {
+      text-align: center;
+    }
+
+  </style>
+
+  <!-- Modal para vista previa -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <img id="modal-img" src="" alt="Producto">
+    <h4 id="modal-title"></h4>
+    <p id="modal-price"></p>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modal-img");
+  const modalTitle = document.getElementById("modal-title");
+  const modalPrice = document.getElementById("modal-price");
+
+  function abrirModal(imgSrc, title, price) {
+    modal.style.display = "block";
+    modalImg.src = imgSrc;
+    modalTitle.textContent = title;
+    modalPrice.textContent = price;
+  }
+
+  function cerrarModal() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      cerrarModal();
+    }
+  }
+</script>
+
+</head>
+<body>
+  <h1 class="titulo-rojo">GORRAS</h1>
+
+  <!-- Botón de carrito con contador (único) -->
+<!-- Carrito flotante con hover -->
+<div class="carrito-hover-container">
+  <div class="carrito-icono">
+    🛒 <span id="contador-carrito">0</span>
+  </div>
+  <div class="carrito-dropdown" id="carritoDropdown">
+    <h3>Tu carrito</h3>
+    <ul id="lista-carrito-dropdown"></ul>
+    <p>Total: $<span id="total-carrito-dropdown">0</span> MXN</p>
+    <a href="#" onclick="abrirCarrito()" class="btn-ver-carrito">Ver carrito completo</a>
+  </div>
+</div>
+
+  <div class="btn-group">
+    <a href="../productos.html" class="btn-volver">Volver a Productos</a>
+    <a href="../../index.html" class="btn-volver">Inicio</a>
+  </div>
+
+  <p class="descripcion-productos">Mochilas resistentes con diseños anime para escuela, trabajo o viajes.</p>
+
+  <!-- Contenedor de productos -->
+  <div class="productos-container">
+    <div class="producto-card">
+      <img src="../../assets/products/mochilaone.jpeg" alt="Mochila One Piece">
+      <h4>Mochila One Piece</h4>
+      <p class="text-red-400 font-semibold">$400 MXN</p>
+      <button onclick="agregarAlCarrito('Mochila One Piece', 400, 'productos/mochilas/mochilaone.jpeg')" class="btn-agregar">Agregar al carrito</button>
+    </div>
+
+    <div class="producto-card">
+    <img src="mochila.jpeg" alt="mochila Tony Tony Chopper" 
+    onclick="abrirModal('mochila.jpeg', 'Mochila Tony Tony Chopper', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Mochila Tony Tony Chopper</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Mochila Tony Tony Chopper', 400, 'productos/mochilas/mochila.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+    <div class="producto-card">
+    <img src="mochila-ranmaymedio-negra.jpeg" alt="Mochila Ranma y Medio" 
+    onclick="abrirModal('mochila-ranmaymedio-negra.jpeg', 'Mochila Ranma y Medio', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Mochila Ranma y Medio</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Mochila Ranma y Medio', 400, 'productos/mochilas/mochila-ranmaymedio-negra.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+    <div class="producto-card">
+    <img src="mochila-poppy-playtime.jpeg" alt="Mochila Poppy Playtime" 
+    onclick="abrirModal('mochila-poppy-playtime.jpeg', 'Mochila Poppy Playtime', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Mochila Poppy Playtime</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Mochila Poppy Playtime', 400, 'productos/mochilas/mochila-poppy-playtime.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+    <div class="producto-card">
+    <img src="mochila-pokemon-totodile.jpeg" alt="Mochila Pokemon Totodile" 
+    onclick="abrirModal('mochila-pokemon-totodile.jpeg', 'Mochila Pookemon Totodile', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Mochila Pookemon Totodile</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Mochila Pokemon Totodile', 400, 'productos/mochilas/mochila-pokemon-totodile.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+    <div class="producto-card">
+    <img src="mochila-pokemon-charizard.jpeg" alt="Mochila Pokemon Charizard" 
+    onclick="abrirModal('mochila-pokemon-charizard.jpeg', 'Mochila Pokemon Charizard', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Mochila Pokemon Charizard</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Mochila Pokemon Charizard', 400, 'productos/mochilas/mochila-pokemon-charizard.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+    <div class="producto-card">
+    <img src="mochila-one-piece.jpeg" alt="Mochila One Piece" 
+    onclick="abrirModal('mochila-one-piece.jpeg', 'Mochila One Piece', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Mochila One Piece</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Mochila One Piece', 400, 'productos/mochilas/mochila-one-piece.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+    <div class="producto-card">
+    <img src="mochila-leyend-of-zelda.jpeg" alt="Mochila The Leyend Of Zelda" 
+    onclick="abrirModal('mochila-mochila-leyend-of-zelda.jpeg', 'Mochila The Leyend Of Zelda', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Mochila The Leyend Of Zelda</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Mochila The Leyend Of Zelda', 400, 'productos/mochilas/mochila-leyend-of-zelda.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+
+    <div class="producto-card">
+    <img src="mochila-goku.jpeg" alt="Mochila Goku" 
+    onclick="abrirModal('mochila-goku.jpeg', 'Mochila Goku', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Mochila Goku</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Mochila Goku', 400, 'productos/mochilas/mochila-goku.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+
+    <div class="producto-card">
+    <img src="mochila-gameboy.jpeg" alt="Mochila GameBoy" 
+    onclick="abrirModal('mochila-gameboy.jpeg', 'Mochila GameBoy', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Mochila GameBoy</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Mochila GameBoy', 400, 'productos/mochilas/mochila-gameboy.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+
+    <div class="producto-card">
+    <img src="mochila-demonio.jpeg" alt="Mochila Kaiju No.8" 
+    onclick="abrirModal('mochila-demonio.jpeg', 'Mochila Kaiju No.8', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Mochila Kaiju No.8</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Mochila Kaiju No.8', 400, 'productos/mochilas/mochila-demonio.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+
+    <div class="producto-card">
+    <img src="mochila-bt21.jpeg" alt="Mochila Bt21" 
+    onclick="abrirModal('mochila-bt21.jpeg', 'Mochila Bt21', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Mochila Bt21</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Mochila Bt21', 400, 'productos/mochilas/mochila-bt21.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+
+    <div class="producto-card">
+    <img src="bolso-one-piece.jpeg" alt="Bolso One Piece" 
+    onclick="abrirModal('bolso-one-piece.jpeg', 'Bolso One Piece', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Bolso One Piece</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Bolso One Piece', 400, 'productos/mochilas/bolso-one-piece.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+
+
+    <div class="producto-card">
+    <img src="bolso-charlie-brown.jpeg" alt="Bolso Charlie Brown" 
+    onclick="abrirModal('bolso-charlie-brown.jpeg', 'Bolso Charlie Brown', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Bolso Charlie Brown</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Bolso Charlie Brown', 400, 'productos/mochilas/bolso-charlie-brown.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+    <div class="producto-card">
+    <img src="bolso-barbie.jpeg" alt="Bolso Barbie" 
+    onclick="abrirModal('bolso-barbie.jpeg', 'Bolso Barbie', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Bolso Barbie</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Bolso Barbie', 400, 'productos/mochilas/bolso-barbie.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+
+
+
+    <div class="producto-card">
+    <img src="bolso-amarillo-one-piece.jpeg" alt="Bolso One Piece Amarillo" 
+    onclick="abrirModal('bolso-amarillo-one-piece.jpeg', 'Bolso One Piece Amarillo', '$400 MXN')"
+    style="cursor: pointer;"
+  >
+    <h4>Bolso One Piece Amarillo</h4>
+    <p class="text-red-400 font-semibold">$400 MXN</p>
+    <button 
+    onclick="agregarAlCarrito('Bolso One Piece Amarillo', 400,'productos/mochilas/bolso-amarillo-one-piece.jpeg')" 
+    class="btn-agregar"
+  >
+    Agregar al carrito
+    </button>
+   </div>
+
+    <!-- Puedes agregar más productos igual aquí -->
+  </div>
+
+  <!-- Carrito (modal) -->
+<div id="carritoModal" class="carrito-modal">
+  <h2>Tu carrito</h2>
+  <ul id="lista-carrito"></ul>
+  <p>Total: $<span id="total-carrito">0</span> MXN</p>
+  <a href="../../checkout.html">
+  <button style="margin-top: 1rem; background-color: #00c853;">Finalizar compra</button>
+</a>
+  <button onclick="cerrarCarrito()">Cerrar</button>
+</div>
+
+
+
+<script>
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  function actualizarContadorCarrito() {
+    document.getElementById("contador-carrito").textContent = carrito.length;
+  }
+
+function agregarAlCarrito(nombre, precio, imagen) {
+  carrito.push({ nombre, precio, imagen });
+  actualizarCarrito();             // ✅ actualiza modal
+  actualizarDropdownCarrito();     // ✅ actualiza vista flotante
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  actualizarContadorCarrito();
+}
+
+  function actualizarCarrito() {
+    const lista = document.getElementById("lista-carrito");
+    const total = document.getElementById("total-carrito");
+    lista.innerHTML = "";
+    let totalPrecio = 0;
+
+    carrito.forEach((producto, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `${producto.nombre} - $${producto.precio} 
+        <button onclick="eliminarDelCarrito(${index})">Eliminar</button>`;
+      lista.appendChild(li);
+      totalPrecio += producto.precio;
+    });
+
+    total.textContent = totalPrecio;
+  }
+
+  function eliminarDelCarrito(index) {
+  carrito.splice(index, 1);
+  actualizarCarrito();
+  actualizarDropdownCarrito();
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  actualizarContadorCarrito();
+}
+
+
+  function abrirCarrito() {
+    document.getElementById("carritoModal").style.display = "block";
+    actualizarCarrito();
+  }
+
+  function cerrarCarrito() {
+    document.getElementById("carritoModal").style.display = "none";
+  }
+
+  // Mostrar el número de productos al cargar la página
+  actualizarContadorCarrito();
+
+  function actualizarDropdownCarrito() {
+  const listaDropdown = document.getElementById("lista-carrito-dropdown");
+  const totalDropdown = document.getElementById("total-carrito-dropdown");
+  listaDropdown.innerHTML = "";
+  let totalPrecio = 0;
+
+  carrito.forEach((producto) => {
+    const li = document.createElement("li");
+    li.textContent = `${producto.nombre} - $${producto.precio}`;
+    listaDropdown.appendChild(li);
+    totalPrecio += producto.precio;
+  });
+
+  totalDropdown.textContent = totalPrecio;
+}
+
+actualizarContadorCarrito();
+actualizarDropdownCarrito();
+
+
+</script>
+
+  <footer class="bg-gray-800 text-center text-gray-400 py-6">
+    <p>&copy; 2025 Mundo Relax | Diseñado por Jonathan Jiménez</p>
+  </footer>
+
+  
+
+</body>
+</html>
+

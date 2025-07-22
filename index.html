@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundo Relax | Tienda Anime</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+      <style>
+    .productos-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .producto-card {
+      background-color: #2d2d2d;
+      padding: 1rem;
+      border-radius: 8px;
+      width: 250px;
+      text-align: center;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .producto-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .producto-card:hover {
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-carrito {
+      background-color: #e50914;
+      color: white;
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-carrito:hover {
+      background-color: #b40610;
+    }
+    .titulo-rojo {
+      color: #e50914;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .descripcion-productos {
+      text-align: center;
+    }
+
+  </style>
+
+  
+</head>
+<body class="bg-gray-900 text-white">
+
+  <!-- Botón para abrir el carrito con contador -->
+<div style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+  <button id="abrirCarrito" onclick="abrirCarrito()" style="
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    position: relative;
+  ">
+    🛒
+    <span id="contador-carrito" style="
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+    ">0</span>
+  </button>
+</div>
+
+
+
+  
+
+  <!-- NAVBAR -->
+  <header class="bg-gray-800 shadow-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-red-500">Mundo Relax</h1>
+      <nav class="space-x-4">
+        <a href="productos/productos.html">Productos</a>
+        <a href="#nosotros" class="hover:text-red-400">Nosotros</a>
+        <a href="#contacto" class="hover:text-red-400">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="text-center py-16 bg-gray-900">
+    <h2 class="text-4xl md:text-5xl font-bold mb-4">Tu estilo anime, en cada prenda</h2>
+    <p class="text-gray-300 mb-6">Playeras, gorras, mochilas y más con diseños únicos</p>
+    <a href="productos/productos.html" class="bg-red-500 hover:bg-red-600 px-6 py-3 rounded text-white font-semibold">Ver Productos</a>
+    
+  </section>
+
+  <!-- PRODUCTOS DESTACADOS -->
+  <section id="productos" class="py-12 max-w-6xl mx-auto px-4">
+    <h3 class="text-3xl font-bold mb-8 text-center">Productos Destacados</h3>
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <!-- Tarjeta 1 -->
+      <div class="bg-gray-800 p-4 rounded shadow hover:shadow-lg transition">
+        <img src="assets/products/playera.jpeg" alt="Playera Anime" class="w-full h-48 object-cover rounded">
+        <h4 class="mt-4 font-bold text-xl">Playera Akatsuki</h4>
+        <p class="text-red-400 font-semibold">$250 MXN</p>
+        <button 
+  onclick="agregarAlCarrito('Playera Akatsuki', 250, 'assets/products/playera.jpeg')" 
+  class="mt-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+>
+  Agregar al carrito
+</button>
+
+      </div>
+      <!-- Tarjeta 2 -->
+      <div class="bg-gray-800 p-4 rounded shadow hover:shadow-lg transition">
+        <img src="assets/products/gorra.jpeg" alt="Gorra Anime" class="w-full h-48 object-cover rounded">
+        <h4 class="mt-4 font-bold text-xl">Gorra Demon Slayer</h4>
+        <p class="text-red-400 font-semibold">$200 MXN</p>
+        <button 
+  onclick="agregarAlCarrito('Gorra Demon Slayer', 200, 'assets/products/gorra.jpeg')" 
+  class="mt-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+>
+  Agregar al carrito
+</button>
+
+
+      </div>
+      <!-- Tarjeta 3 -->
+      <div class="bg-gray-800 p-4 rounded shadow hover:shadow-lg transition">
+        <img src="assets/products/mochilaone.jpeg" alt="Mochila Anime" class="w-full h-48 object-cover rounded">
+        <h4 class="mt-4 font-bold text-xl">Mochila One Piece</h4>
+        <p class="text-red-400 font-semibold">$400 MXN</p>
+        <button 
+  onclick="agregarAlCarrito('Mochila One Piece', 400, 'assets/products/mochilaone.jpeg')" 
+  class="mt-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+>
+  Agregar al carrito
+</button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros" class="bg-gray-800 py-16 px-6 text-center">
+    <h3 class="text-3xl font-bold mb-4">¿Quiénes Somos?</h3>
+    <p class="text-gray-300 max-w-2xl mx-auto">
+      Mundo Relax nace de la pasión por el anime y la moda. Queremos que lleves tu serie favorita contigo, con estilo y calidad. Cada producto es seleccionado y diseñado para fans como tú.
+    </p>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="py-16 px-6 max-w-xl mx-auto">
+    <h3 class="text-3xl font-bold mb-4 text-center">Contacto</h3>
+    <form action="https://formspree.io/f/mdkzevjr" method="POST" class="space-y-4">
+      <input type="text" name="name" placeholder="Tu nombre" required class="w-full p-2 rounded bg-gray-700 text-white">
+      <input type="email" name="email" placeholder="Correo electrónico" required class="w-full p-2 rounded bg-gray-700 text-white">
+      <textarea name="message" rows="4" placeholder="Tu mensaje" required class="w-full p-2 rounded bg-gray-700 text-white"></textarea>
+      <button type="submit" class="bg-red-500 hover:bg-red-600 px-6 py-2 rounded text-white">Enviar mensaje</button>
+    </form>
+  </section>
+
+  <!-- Carrito (modal) -->
+<div id="carritoModal" class="carrito-modal">
+  <h2>Tu carrito</h2>
+  <ul id="lista-carrito"></ul>
+  <p>Total: $<span id="total-carrito">0</span> MXN</p>
+  <a href="checkout.html">
+  <button style="margin-top: 1rem; background-color: #00c853;">Finalizar compra</button>
+</a>
+  <button onclick="cerrarCarrito()">Cerrar</button>
+</div>
+
+
+
+<script>
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  function actualizarContadorCarrito() {
+    document.getElementById("contador-carrito").textContent = carrito.length;
+  }
+
+function agregarAlCarrito(nombre, precio, imagen) {
+  carrito.push({ nombre, precio, imagen });
+  actualizarCarrito();             // ✅ actualiza modal
+  actualizarDropdownCarrito();     // ✅ actualiza vista flotante
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  actualizarContadorCarrito();
+}
+
+  function actualizarCarrito() {
+    const lista = document.getElementById("lista-carrito");
+    const total = document.getElementById("total-carrito");
+    lista.innerHTML = "";
+    let totalPrecio = 0;
+
+    carrito.forEach((producto, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `${producto.nombre} - $${producto.precio} 
+        <button onclick="eliminarDelCarrito(${index})">Eliminar</button>`;
+      lista.appendChild(li);
+      totalPrecio += producto.precio;
+    });
+
+    total.textContent = totalPrecio;
+  }
+
+  function eliminarDelCarrito(index) {
+  carrito.splice(index, 1);
+  actualizarCarrito();
+  actualizarDropdownCarrito();
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  actualizarContadorCarrito();
+}
+
+
+  function abrirCarrito() {
+    document.getElementById("carritoModal").style.display = "block";
+    actualizarCarrito();
+  }
+
+  function cerrarCarrito() {
+    document.getElementById("carritoModal").style.display = "none";
+  }
+
+  // Mostrar el número de productos al cargar la página
+  actualizarContadorCarrito();
+
+ function actualizarDropdownCarrito() {
+  const listaDropdown = document.getElementById("lista-carrito-dropdown");
+  const totalDropdown = document.getElementById("total-carrito-dropdown");
+
+  if (!listaDropdown || !totalDropdown) return; // Evita error si no existen
+
+  listaDropdown.innerHTML = "";
+  let totalPrecio = 0;
+
+  carrito.forEach((producto) => {
+    const li = document.createElement("li");
+    li.textContent = `${producto.nombre} - $${producto.precio}`;
+    listaDropdown.appendChild(li);
+    totalPrecio += producto.precio;
+  });
+
+  totalDropdown.textContent = totalPrecio;
+}
+
+actualizarContadorCarrito();
+actualizarDropdownCarrito();
+
+</script>
+
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-800 text-center text-gray-400 py-6">
+    <p>&copy; 2025 Mundo Relax | Diseñado por Jonathan Jiménez</p>
+  </footer>
+
+
+</body>
+</html>
